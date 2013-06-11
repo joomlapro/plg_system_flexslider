@@ -39,13 +39,6 @@ class PlgSystemFlexslider extends JPlugin
 		// Register a function.
 		JHtml::register('jquery.flexslider', array('JHtmlFlexslider', 'flexslider'));
 
-		// Force load script.
-		if ($this->params->get('force'))
-		{
-			// Load the flexslider jquery script.
-			JHtml::_('jquery.flexslider', $this->params->get('selector', '.flexslider'), $this->params);
-		}
-
 		return true;
 	}
 }

@@ -21,15 +21,16 @@ abstract class JHtmlFlexslider extends JHtmlJquery
 	/**
 	 * Method to load the jQuery Flexslider into the document head.
 	 *
-	 * @param   string     $selector  The HTML selector.
-	 * @param   JRegistry  $params    The parameters object. [optional]
-	 * @param   mixed      $debug     Is debugging mode on? [optional]
+	 * @param   string   $selector  The HTML selector.
+	 * @param   boolean  $css       If true, load the default css.
+	 * @param   boolean  $minified  If true, use the minified version.
+	 * @param   mixed    $debug     Is debugging mode on? [optional]
 	 *
 	 * @return  void
 	 *
 	 * @since   3.1
 	 */
-	public static function Flexslider($selector = '.flexslider', $params = null, $debug = null)
+	public static function Flexslider($selector = null, $css = false, $minified = true, $debug = null)
 	{
 		// Include jQuery.
 		self::framework();
@@ -42,13 +43,13 @@ abstract class JHtmlFlexslider extends JHtmlJquery
 		}
 
 		// Add Stylesheet.
-		if ($params->get('default_css'))
+		if ($css)
 		{
 			JHtml::stylesheet('plg_system_flexslider/flexslider.css', false, true, false);
 		}
 
 		// Add JavaScript.
-		if ($params->get('minified', 1))
+		if ($minified)
 		{
 			JHtml::script('plg_system_flexslider/jquery.flexslider.min.js', false, true);
 		}
@@ -57,56 +58,59 @@ abstract class JHtmlFlexslider extends JHtmlJquery
 			JHtml::script('plg_system_flexslider/jquery.flexslider.js', false, true);
 		}
 
-		// Get the document object.
-		$doc = JFactory::getDocument();
+		if ($selector)
+		{
+			// Get the document object.
+			$doc = JFactory::getDocument();
 
-		// Build the script.
-		$script = array();
-		$script[] = 'jQuery(document).ready(function() {';
-		$script[] = '	jQuery(window).on(\'resize\', function() {';
-		$script[] = '		var slider = $(\'' . $selector . '\');';
+			// Build the script.
+			$script = array();
+			$script[] = 'jQuery(document).ready(function() {';
+			$script[] = '	jQuery(window).on(\'resize\', function() {';
+			$script[] = '		var slider = $(\'' . $selector . '\');';
 
-		$script[] = '		slider.each(function() {';
-		$script[] = '			var sliderInstance       = $(\'#\' + $(this).prop(\'id\')),';
-		$script[] = '				sliderSelector       = sliderInstance.data(\'selector\'),';
-		$script[] = '				sliderAnimation      = sliderInstance.data(\'animation\'),';
-		$script[] = '				sliderDirection      = sliderInstance.data(\'direction\'),';
-		$script[] = '				sliderAnimationLoop  = sliderInstance.data(\'animationloop\'),';
-		$script[] = '				sliderControlNav     = sliderInstance.data(\'controlnav\'),';
-		$script[] = '				sliderDirectionNav   = sliderInstance.data(\'directionnav\'),';
-		$script[] = '				sliderSlideshowSpeed = sliderInstance.data(\'slideshowspeed\'),';
-		$script[] = '				sliderAnimationSpeed = sliderInstance.data(\'animationspeed\'),';
-		$script[] = '				sliderPauseOnHover   = sliderInstance.data(\'pauseonhover\'),';
-		$script[] = '				sliderUseCSS         = sliderInstance.data(\'usecss\'),';
-		$script[] = '				sliderItemWidth      = sliderInstance.data(\'itemwidth\'),';
-		$script[] = '				sliderItemMargin     = sliderInstance.data(\'itemmargin\'),';
-		$script[] = '				sliderminItems       = sliderInstance.data(\'minitems\'),';
-		$script[] = '				slidermaxItems       = sliderInstance.data(\'maxitems\');';
+			$script[] = '		slider.each(function() {';
+			$script[] = '			var sliderInstance       = $(\'#\' + $(this).prop(\'id\')),';
+			$script[] = '				sliderSelector       = sliderInstance.data(\'selector\'),';
+			$script[] = '				sliderAnimation      = sliderInstance.data(\'animation\'),';
+			$script[] = '				sliderDirection      = sliderInstance.data(\'direction\'),';
+			$script[] = '				sliderAnimationLoop  = sliderInstance.data(\'animationloop\'),';
+			$script[] = '				sliderControlNav     = sliderInstance.data(\'controlnav\'),';
+			$script[] = '				sliderDirectionNav   = sliderInstance.data(\'directionnav\'),';
+			$script[] = '				sliderSlideshowSpeed = sliderInstance.data(\'slideshowspeed\'),';
+			$script[] = '				sliderAnimationSpeed = sliderInstance.data(\'animationspeed\'),';
+			$script[] = '				sliderPauseOnHover   = sliderInstance.data(\'pauseonhover\'),';
+			$script[] = '				sliderUseCSS         = sliderInstance.data(\'usecss\'),';
+			$script[] = '				sliderItemWidth      = sliderInstance.data(\'itemwidth\'),';
+			$script[] = '				sliderItemMargin     = sliderInstance.data(\'itemmargin\'),';
+			$script[] = '				sliderminItems       = sliderInstance.data(\'minitems\'),';
+			$script[] = '				slidermaxItems       = sliderInstance.data(\'maxitems\');';
 
-		$script[] = '			$(this).flexslider({';
-		$script[] = '				selector: sliderSelector,';
-		$script[] = '				animation: sliderAnimation,';
-		$script[] = '				direction: sliderDirection,';
-		$script[] = '				animationLoop: sliderAnimationLoop,';
-		$script[] = '				controlNav: sliderControlNav,';
-		$script[] = '				directionNav: sliderDirectionNav,';
-		$script[] = '				slideshowSpeed: sliderSlideshowSpeed,';
-		$script[] = '				animationSpeed: sliderAnimationSpeed,';
-		$script[] = '				pauseOnHover: sliderPauseOnHover,';
-		$script[] = '				useCSS: sliderUseCSS,';
-		$script[] = '				itemWidth: sliderItemWidth,';
-		$script[] = '				itemMargin: sliderItemMargin,';
-		$script[] = '				minItems: sliderminItems,';
-		$script[] = '				maxItems: slidermaxItems,';
-		$script[] = '				prevText: \'<i class="icon-chevron-left"></i>\',';
-		$script[] = '				nextText: \'<i class="icon-chevron-right"></i>\'';
-		$script[] = '			});';
-		$script[] = '		});';
-		$script[] = '	}).resize();';
-		$script[] = '});';
+			$script[] = '			$(this).flexslider({';
+			$script[] = '				selector: sliderSelector,';
+			$script[] = '				animation: sliderAnimation,';
+			$script[] = '				direction: sliderDirection,';
+			$script[] = '				animationLoop: sliderAnimationLoop,';
+			$script[] = '				controlNav: sliderControlNav,';
+			$script[] = '				directionNav: sliderDirectionNav,';
+			$script[] = '				slideshowSpeed: sliderSlideshowSpeed,';
+			$script[] = '				animationSpeed: sliderAnimationSpeed,';
+			$script[] = '				pauseOnHover: sliderPauseOnHover,';
+			$script[] = '				useCSS: sliderUseCSS,';
+			$script[] = '				itemWidth: sliderItemWidth,';
+			$script[] = '				itemMargin: sliderItemMargin,';
+			$script[] = '				minItems: sliderminItems,';
+			$script[] = '				maxItems: slidermaxItems,';
+			$script[] = '				prevText: \'<i class="icon-chevron-left"></i>\',';
+			$script[] = '				nextText: \'<i class="icon-chevron-right"></i>\'';
+			$script[] = '			});';
+			$script[] = '		});';
+			$script[] = '	}).resize();';
+			$script[] = '});';
 
-		// Add the script to the document head.
-		$doc->addScriptDeclaration(implode("\n", $script));
+			// Add the script to the document head.
+			$doc->addScriptDeclaration(implode("\n", $script));
+		}
 
 		return;
 	}

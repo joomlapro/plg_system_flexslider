@@ -9,48 +9,25 @@
 	<authorUrl>http://www.atomtech.com.br</authorUrl>
 	<version>1.0</version>
 	<description>PLG_SYSTEM_FLEXSLIDER_XML_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
 	<files>
 		<filename plugin="flexslider">flexslider.php</filename>
 		<filename>index.html</filename>
+		<folder>helpers</folder>
 	</files>
 	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_flexslider.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_flexslider.sys.ini</language>
 		<language tag="pt-BR">pt-BR/pt-BR.plg_system_flexslider.ini</language>
 		<language tag="pt-BR">pt-BR/pt-BR.plg_system_flexslider.sys.ini</language>
 	</languages>
+	<media destination="plg_system_flexslider" folder="media">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<filename>index.html</filename>
+	</media>
 	<config>
-		<fields name="params">
-			<fieldset name="basic">
-				<field
-					name="force"
-					type="radio"
-					class="btn-group"
-					default="0"
-					filter="integer"
-					label="PLG_SYSTEM_FLEXSLIDER_FIELD_FORCE_LABEL"
-					description="PLG_SYSTEM_FLEXSLIDER_FIELD_FORCE_DESC">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field
-					name="selector"
-					type="text"
-					size="40"
-					class="inputbox"
-					filter="string"
-					label="PLG_SYSTEM_FLEXSLIDER_FIELD_SELECTOR_LABEL"
-					description="PLG_SYSTEM_FLEXSLIDER_FIELD_SELECTOR_DESC" />
-				<field
-					name="default_css"
-					type="radio"
-					class="btn-group"
-					default="0"
-					filter="integer"
-					label="PLG_SYSTEM_FLEXSLIDER_FIELD_DEFAULT_CSS_LABEL"
-					description="PLG_SYSTEM_FLEXSLIDER_FIELD_DEFAULT_CSS_DESC">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-			</fieldset>
-		</fields>
+		<fields name="params" />
 	</config>
 </extension>
