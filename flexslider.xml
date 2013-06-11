@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension version="3.1" type="plugin" group="system" method="upgrade">
+	<name>plg_system_flexslider</name>
+	<author>Bruno Batista</author>
+	<creationDate>May 2013</creationDate>
+	<copyright>Copyright (C) 2013 AtomTech, Inc. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>bruno@atomtech.com.br</authorEmail>
+	<authorUrl>http://www.atomtech.com.br</authorUrl>
+	<version>1.0</version>
+	<description>PLG_SYSTEM_FLEXSLIDER_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="flexslider">flexslider.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages folder="language">
+		<language tag="pt-BR">pt-BR/pt-BR.plg_system_flexslider.ini</language>
+		<language tag="pt-BR">pt-BR/pt-BR.plg_system_flexslider.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="force"
+					type="radio"
+					class="btn-group"
+					default="0"
+					filter="integer"
+					label="PLG_SYSTEM_FLEXSLIDER_FIELD_FORCE_LABEL"
+					description="PLG_SYSTEM_FLEXSLIDER_FIELD_FORCE_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="selector"
+					type="text"
+					size="40"
+					class="inputbox"
+					filter="string"
+					label="PLG_SYSTEM_FLEXSLIDER_FIELD_SELECTOR_LABEL"
+					description="PLG_SYSTEM_FLEXSLIDER_FIELD_SELECTOR_DESC" />
+				<field
+					name="default_css"
+					type="radio"
+					class="btn-group"
+					default="0"
+					filter="integer"
+					label="PLG_SYSTEM_FLEXSLIDER_FIELD_DEFAULT_CSS_LABEL"
+					description="PLG_SYSTEM_FLEXSLIDER_FIELD_DEFAULT_CSS_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
